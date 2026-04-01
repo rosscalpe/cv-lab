@@ -6,7 +6,7 @@
 
 export type SkillLevel = 'basic' | 'intermediate' | 'advanced'
 export type LanguageLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
-export type TemplateCategory = 'modern' | 'classic' | 'creative' | 'minimalist'
+export type TemplateCategory = 'modern' | 'classic' | 'creative' | 'minimalist' | 'addon'
 export type PaymentProvider = 'stripe' | 'mercadopago'
 export type SubscriptionStatus = 'active' | 'canceled' | 'past_due' | 'trialing'
 export type ExportLocale = 'es' | 'en' | 'pt'
