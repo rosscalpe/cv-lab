@@ -14,11 +14,10 @@ export async function generatePDF(printUrl: string, cookieHeader: string): Promi
 
     browser = await puppeteer.default.launch({
       args: chromium.default.args,
-      defaultViewport: chromium.default.defaultViewport,
       executablePath: await chromium.default.executablePath(
         'https://github.com/Sparticuz/chromium/releases/download/v133.0.0/chromium-v133.0.0-pack.tar',
       ),
-      headless: chromium.default.headless as boolean | 'shell',
+      headless: true,
     })
   } else {
     const puppeteer = await import('puppeteer')
