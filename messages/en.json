@@ -1,0 +1,132 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Saved successfully!"
+  },
+  "nav": {
+    "profile": "My Profile",
+    "templates": "Templates",
+    "export": "Export CV",
+    "logout": "Log out"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "resetPassword": "Reset password",
+    "loginWithGoogle": "Continue with Google",
+    "loginWithLinkedIn": "Continue with LinkedIn",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "orWithEmail": "or with email",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "passwordHint": "Minimum 8 characters",
+    "checkEmailMessage": "Check your email to confirm your account.",
+    "resetSentMessage": "We sent you an email to reset your password.",
+    "authError": "An authentication error occurred. Please try again.",
+    "updatePassword": "Update password",
+    "newPassword": "New password"
+  },
+  "profile": {
+    "title": "My Profile",
+    "personalInfo": "Personal information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "headline": "Professional title",
+    "email": "Email",
+    "phone": "Phone",
+    "city": "City",
+    "country": "Country",
+    "linkedin": "LinkedIn",
+    "portfolio": "Portfolio / GitHub",
+    "photo": "Profile photo",
+    "summary": "Professional summary",
+    "summaryHint": "Maximum 400 characters",
+    "experience": "Work experience",
+    "company": "Company",
+    "role": "Position",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "currentJob": "Current job",
+    "description": "Description",
+    "education": "Education",
+    "institution": "Institution",
+    "degree": "Degree / Program",
+    "startYear": "Start year",
+    "endYear": "End year",
+    "skills": "Skills",
+    "skillName": "Skill",
+    "skillLevel": "Level",
+    "levels": {
+      "basic": "Basic",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "languages": "Languages",
+    "language": "Language",
+    "languageLevel": "Level",
+    "certifications": "Certifications",
+    "certName": "Name",
+    "issuer": "Issuer",
+    "year": "Year",
+    "projects": "Projects",
+    "projectName": "Project name",
+    "projectUrl": "URL"
+  },
+  "templates": {
+    "title": "Choose your template",
+    "free": "Free",
+    "premium": "Premium",
+    "preview": "Preview",
+    "select": "Select",
+    "locked": "Premium template",
+    "filters": {
+      "all": "All",
+      "modern": "Modern",
+      "classic": "Classic",
+      "creative": "Creative",
+      "minimalist": "Minimalist"
+    }
+  },
+  "export": {
+    "title": "Export CV",
+    "language": "CV language",
+    "languageHint": "Labels and content will be automatically translated",
+    "generate": "Generate PDF",
+    "generating": "Generating PDF...",
+    "download": "Download",
+    "translating": "Translating content...",
+    "languages": {
+      "es": "Spanish",
+      "en": "English",
+      "pt": "Portuguese"
+    }
+  },
+  "cv": {
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "certifications": "Certifications",
+    "projects": "Projects",
+    "summary": "Professional summary",
+    "present": "Present"
+  },
+  "payment": {
+    "unlock": "Unlock template",
+    "price": "Price",
+    "payWithCard": "Pay with card",
+    "payWithMercadoPago": "Pay with MercadoPago",
+    "success": "Template unlocked!",
+    "alreadyOwned": "You already have access to this template"
+  }
+}

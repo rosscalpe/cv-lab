@@ -1,0 +1,132 @@
+{
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "add": "Adicionar",
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "success": "Salvo com sucesso!"
+  },
+  "nav": {
+    "profile": "Meu Perfil",
+    "templates": "Modelos",
+    "export": "Exportar CV",
+    "logout": "Sair"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "email": "E-mail",
+    "password": "Senha",
+    "forgotPassword": "Esqueceu sua senha?",
+    "resetPassword": "Redefinir senha",
+    "loginWithGoogle": "Continuar com Google",
+    "loginWithLinkedIn": "Continuar com LinkedIn",
+    "noAccount": "Não tem uma conta?",
+    "haveAccount": "Já tem uma conta?",
+    "orWithEmail": "ou com e-mail",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "passwordHint": "Mínimo 8 caracteres",
+    "checkEmailMessage": "Verifique seu e-mail para confirmar sua conta.",
+    "resetSentMessage": "Enviamos um e-mail para redefinir sua senha.",
+    "authError": "Ocorreu um erro de autenticação. Tente novamente.",
+    "updatePassword": "Atualizar senha",
+    "newPassword": "Nova senha"
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "personalInfo": "Dados pessoais",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "headline": "Título profissional",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "city": "Cidade",
+    "country": "País",
+    "linkedin": "LinkedIn",
+    "portfolio": "Portfólio / GitHub",
+    "photo": "Foto de perfil",
+    "summary": "Resumo profissional",
+    "summaryHint": "Máximo 800 caracteres",
+    "experience": "Experiência profissional",
+    "company": "Empresa",
+    "role": "Cargo",
+    "startDate": "Data de início",
+    "endDate": "Data de término",
+    "currentJob": "Emprego atual",
+    "description": "Descrição",
+    "education": "Formação acadêmica",
+    "institution": "Instituição",
+    "degree": "Título / Curso",
+    "startYear": "Ano de início",
+    "endYear": "Ano de término",
+    "skills": "Habilidades",
+    "skillName": "Habilidade",
+    "skillLevel": "Nível",
+    "levels": {
+      "basic": "Básico",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado"
+    },
+    "languages": "Idiomas",
+    "language": "Idioma",
+    "languageLevel": "Nível",
+    "certifications": "Certificações",
+    "certName": "Nome",
+    "issuer": "Emissor",
+    "year": "Ano",
+    "projects": "Projetos",
+    "projectName": "Nome do projeto",
+    "projectUrl": "URL"
+  },
+  "templates": {
+    "title": "Escolha seu modelo",
+    "free": "Grátis",
+    "premium": "Premium",
+    "preview": "Visualizar",
+    "select": "Selecionar",
+    "locked": "Modelo premium",
+    "filters": {
+      "all": "Todos",
+      "modern": "Moderno",
+      "classic": "Clássico",
+      "creative": "Criativo",
+      "minimalist": "Minimalista"
+    }
+  },
+  "export": {
+    "title": "Exportar CV",
+    "language": "Idioma do CV",
+    "languageHint": "Os rótulos e o conteúdo serão traduzidos automaticamente",
+    "generate": "Gerar PDF",
+    "generating": "Gerando PDF...",
+    "download": "Baixar",
+    "translating": "Traduzindo conteúdo...",
+    "languages": {
+      "es": "Espanhol",
+      "en": "Inglês",
+      "pt": "Português"
+    }
+  },
+  "cv": {
+    "experience": "Experiência",
+    "education": "Formação",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "certifications": "Certificações",
+    "projects": "Projetos",
+    "summary": "Resumo profissional",
+    "present": "Presente"
+  },
+  "payment": {
+    "unlock": "Desbloquear modelo",
+    "price": "Preço",
+    "payWithCard": "Pagar com cartão",
+    "payWithMercadoPago": "Pagar com MercadoPago",
+    "success": "Modelo desbloqueado!",
+    "alreadyOwned": "Você já tem acesso a este modelo"
+  }
+}
