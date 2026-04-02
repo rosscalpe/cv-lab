@@ -26,12 +26,14 @@ export async function POST(request: NextRequest) {
   let templateId: string
   let locale: string
   let accentColor: string | undefined
+  let compact: boolean
 
   try {
     const body = await request.json()
     templateId = body.templateId
     locale = body.locale ?? 'es'
     accentColor = body.accentColor ?? undefined
+    compact = body.compact ?? false
   } catch {
     return NextResponse.json({ error: 'Body inválido' }, { status: 400 })
   }
@@ -108,7 +110,7 @@ export async function POST(request: NextRequest) {
   const cookieHeader = request.headers.get('cookie') ?? ''
 
   try {
-    const pdfBuffer = await generatePDF(printUrl, cookieHeader)
+    const pdfBuffer = await generatePDF(printUrl, cookieHeader, compact)
 
     const namePart = [cvData.profile?.first_name, cvData.profile?.last_name]
       .filter(Boolean)

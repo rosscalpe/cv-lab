@@ -36,6 +36,7 @@ export function ExportForm({
   const [selectedId, setSelectedId] = useState(defaultTemplateId ?? templates[0]?.id ?? '')
   const [locale, setLocale] = useState('es')
   const [accentColor, setAccentColor] = useState<string | undefined>(undefined)
+  const [compact, setCompact] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isPaying, setIsPaying] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -117,7 +118,7 @@ export function ExportForm({
       const res = await fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ templateId: selectedId, locale, accentColor }),
+        body: JSON.stringify({ templateId: selectedId, locale, accentColor, compact }),
       })
 
       if (!res.ok) {
@@ -285,6 +286,17 @@ export function ExportForm({
             </p>
           )}
         </div>
+
+        {/* Comprimir a 1 página */}
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={compact}
+            onChange={(e) => setCompact(e.target.checked)}
+            className="h-4 w-4 rounded border-neutral-300 accent-[#3d8ef0]"
+          />
+          <span className="text-sm text-neutral-600">Comprimir a 1 página</span>
+        </label>
 
         {/* Feedback */}
         {error && (
