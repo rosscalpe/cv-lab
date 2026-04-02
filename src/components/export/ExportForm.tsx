@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { TemplateWithAccess } from '@/lib/supabase/template-queries'
 import type { UserCVData } from '@/types/database'
 import { TEMPLATE_REGISTRY, TEMPLATE_COLORS } from '@/components/pdf/templates'
@@ -36,7 +36,6 @@ export function ExportForm({
   const [selectedId, setSelectedId] = useState(defaultTemplateId ?? templates[0]?.id ?? '')
   const [locale, setLocale] = useState('es')
   const [accentColor, setAccentColor] = useState<string | undefined>(undefined)
-  const [compact, setCompact] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isPaying, setIsPaying] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -118,7 +117,7 @@ export function ExportForm({
       const res = await fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ templateId: selectedId, locale, accentColor, compact }),
+        body: JSON.stringify({ templateId: selectedId, locale, accentColor }),
       })
 
       if (!res.ok) {
@@ -147,6 +146,15 @@ export function ExportForm({
     }
   }
 
+  const templateRef = useRef<HTMLDivElement>(null)
+  const [estimatedPages, setEstimatedPages] = useState(1)
+
+  useEffect(() => {
+    if (!templateRef.current) return
+    const height = templateRef.current.scrollHeight
+    setEstimatedPages(Math.ceil(height / 1123))
+  })
+
   const PREVIEW_SCALE = 0.68
 
   return (
@@ -155,6 +163,7 @@ export function ExportForm({
       <div className="overflow-auto rounded-xl border border-neutral-200 bg-neutral-100 shadow-inner">
         {TemplateComponent ? (
           <div
+            ref={templateRef}
             style={{
               zoom: PREVIEW_SCALE,
               width: '794px',
@@ -287,17 +296,6 @@ export function ExportForm({
           )}
         </div>
 
-        {/* Comprimir a 1 página */}
-        <label className="flex items-center gap-2 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={compact}
-            onChange={(e) => setCompact(e.target.checked)}
-            className="h-4 w-4 rounded border-neutral-300 accent-[#3d8ef0]"
-          />
-          <span className="text-sm text-neutral-600">Comprimir a 1 página</span>
-        </label>
-
         {/* Feedback */}
         {error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -307,6 +305,21 @@ export function ExportForm({
         {success && (
           <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
             ✓ PDF descargado correctamente
+          </div>
+        )}
+
+        {/* Aviso de páginas */}
+        {estimatedPages > 1 && (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+            <div className="flex items-start gap-2">
+              <svg className="h-4 w-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              </svg>
+              <div>
+                <p className="font-semibold mb-1">Tu CV ocupa ~{estimatedPages} páginas</p>
+                <p>Para ajustarlo a 1 página, intentá resumir las descripciones de tus experiencias laborales.</p>
+              </div>
+            </div>
           </div>
         )}
 

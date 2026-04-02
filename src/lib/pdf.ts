@@ -3,7 +3,7 @@
  * En producción usa @sparticuz/chromium-min (compatible con Vercel).
  * En desarrollo usa puppeteer local (Chromium incluido).
  */
-export async function generatePDF(printUrl: string, cookieHeader: string, compact = false): Promise<Buffer> {
+export async function generatePDF(printUrl: string, cookieHeader: string): Promise<Buffer> {
   const isProduction = process.env.NODE_ENV === 'production'
 
   let browser: import('puppeteer-core').Browser
@@ -57,7 +57,6 @@ export async function generatePDF(printUrl: string, cookieHeader: string, compac
       format: 'A4',
       printBackground: true,
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
-      ...(compact ? { scale: 0.82 } : {}),
     })
 
     return Buffer.from(pdf)
