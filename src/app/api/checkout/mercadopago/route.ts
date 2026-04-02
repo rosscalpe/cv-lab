@@ -22,9 +22,11 @@ export async function POST(request: NextRequest) {
   }
 
   let templateId: string
+  let returnTemplateId: string | undefined
   try {
     const body = await request.json()
     templateId = body.templateId
+    returnTemplateId = body.returnTemplateId
   } catch {
     return NextResponse.json({ error: 'Body inválido' }, { status: 400 })
   }
@@ -77,9 +79,9 @@ export async function POST(request: NextRequest) {
       ],
       external_reference: `${user.id}|${templateId}`,
       back_urls: {
-        success: `${appUrl}/export?templateId=${templateId}&payment=success`,
-        failure: `${appUrl}/export?templateId=${templateId}&payment=cancelled`,
-        pending: `${appUrl}/export?templateId=${templateId}&payment=pending`,
+        success: `${appUrl}/export?payment=success${returnTemplateId ? `&returnTemplateId=${returnTemplateId}` : `&templateId=${templateId}`}`,
+        failure: `${appUrl}/export?payment=cancelled${returnTemplateId ? `&returnTemplateId=${returnTemplateId}` : `&templateId=${templateId}`}`,
+        pending: `${appUrl}/export?payment=pending${returnTemplateId ? `&returnTemplateId=${returnTemplateId}` : `&templateId=${templateId}`}`,
       },
       auto_return: 'approved',
       notification_url: `${appUrl}/api/webhooks/mercadopago`,

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import type { TemplateWithAccess } from '@/lib/supabase/template-queries'
 import type { UserCVData } from '@/types/database'
 import { TEMPLATE_REGISTRY, TEMPLATE_COLORS } from '@/components/pdf/templates'
@@ -16,6 +17,7 @@ interface Props {
   hasTranslationPackPT: boolean
   translationPackENId?: string
   translationPackPTId?: string
+  paymentJustCompleted?: boolean
 }
 
 const LOCALES = [
@@ -32,7 +34,9 @@ export function ExportForm({
   hasTranslationPackPT,
   translationPackENId,
   translationPackPTId,
+  paymentJustCompleted,
 }: Props) {
+  const router = useRouter()
   const [selectedId, setSelectedId] = useState(defaultTemplateId ?? templates[0]?.id ?? '')
   const [locale, setLocale] = useState('es')
   const [accentColor, setAccentColor] = useState<string | undefined>(undefined)
@@ -65,7 +69,7 @@ export function ExportForm({
       const res = await fetch('/api/checkout/mercadopago', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ templateId: packId }),
+        body: JSON.stringify({ templateId: packId, returnTemplateId: selectedId }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'Error iniciando el pago')
@@ -146,6 +150,12 @@ export function ExportForm({
     }
   }
 
+  useEffect(() => {
+    if (!paymentJustCompleted) return
+    const timer = setTimeout(() => router.refresh(), 3000)
+    return () => clearTimeout(timer)
+  }, [paymentJustCompleted, router])
+
   const templateRef = useRef<HTMLDivElement>(null)
   const [estimatedPages, setEstimatedPages] = useState(1)
 
@@ -181,6 +191,17 @@ export function ExportForm({
 
       {/* ── Controles ── */}
       <div className="space-y-6">
+        {/* Banner pago procesando */}
+        {paymentJustCompleted && (
+          <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800 flex items-center gap-2">
+            <svg className="h-4 w-4 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+            </svg>
+            Verificando tu pago, un momento...
+          </div>
+        )}
+
         {/* Selector de plantilla */}
         <div>
           <p className="mb-2 text-sm font-medium" style={{ color: '#1e3458' }}>Plantilla</p>

@@ -5,7 +5,7 @@ import { getUserCVData } from '@/lib/supabase/queries'
 import { ExportForm } from '@/components/export/ExportForm'
 
 type Props = {
-  searchParams: Promise<{ templateId?: string }>
+  searchParams: Promise<{ templateId?: string; payment?: string; returnTemplateId?: string }>
 }
 
 export default async function ExportPage({ searchParams }: Props) {
@@ -16,7 +16,8 @@ export default async function ExportPage({ searchParams }: Props) {
 
   if (!user) redirect('/login')
 
-  const { templateId } = await searchParams
+  const { templateId, payment, returnTemplateId } = await searchParams
+  const activeTemplateId = returnTemplateId ?? templateId
 
   const [{ templates, hasTranslationPackEN, hasTranslationPackPT, translationPackENId, translationPackPTId }, cvData] = await Promise.all([
     getTemplatesWithAccess(user.id),
@@ -50,7 +51,8 @@ export default async function ExportPage({ searchParams }: Props) {
       <ExportForm
         templates={templates}
         cvData={cvData}
-        defaultTemplateId={templateId}
+        defaultTemplateId={activeTemplateId}
+        paymentJustCompleted={payment === 'success'}
         hasTranslationPackEN={hasTranslationPackEN}
         hasTranslationPackPT={hasTranslationPackPT}
         translationPackENId={translationPackENId}
