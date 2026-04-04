@@ -301,7 +301,7 @@ export function ExportForm({
                   {isLocked && (
                     <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 hidden group-hover:block z-10">
                       <div className="whitespace-nowrap rounded-lg bg-neutral-800 px-3 py-1.5 text-xs text-white shadow-lg">
-                        Desbloqueá por $1000 ARS
+                        Desbloqueá por $3000 ARS
                         <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-neutral-800" />
                       </div>
                     </div>
@@ -386,7 +386,7 @@ export function ExportForm({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/mercadopago.svg" alt="Mercado Pago" className="h-9 w-auto" />
               <div className="text-right">
-                <p className="text-base font-bold" style={{ color: '#1e3458' }}>$1000 ARS</p>
+                <p className="text-base font-bold" style={{ color: '#1e3458' }}>$3000 ARS</p>
                 <p className="text-xs text-neutral-400">pago único · acceso permanente</p>
               </div>
             </button>

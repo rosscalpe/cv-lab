@@ -15,6 +15,11 @@ export default async function AuthLayout({ children }: Props) {
 
       {/* Card */}
       <div className="w-full max-w-sm">{children}</div>
+
+      {/* Footer */}
+      <p className="mt-8 text-xs text-neutral-400">
+        © 2026 CVLab · By <span className="font-medium">Rulienta</span>
+      </p>
     </div>
   )
 }
