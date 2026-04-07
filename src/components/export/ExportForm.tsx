@@ -157,7 +157,9 @@ export function ExportForm({
   }, [paymentJustCompleted, router])
 
   const templateRef = useRef<HTMLDivElement>(null)
+  const previewContainerRef = useRef<HTMLDivElement>(null)
   const [estimatedPages, setEstimatedPages] = useState(1)
+  const [previewScale, setPreviewScale] = useState(0.68)
 
   useEffect(() => {
     if (!templateRef.current) return
@@ -165,17 +167,25 @@ export function ExportForm({
     setEstimatedPages(Math.ceil(height / 1123))
   })
 
-  const PREVIEW_SCALE = 0.68
+  useEffect(() => {
+    if (!previewContainerRef.current) return
+    const observer = new ResizeObserver(([entry]) => {
+      const containerWidth = entry.contentRect.width
+      setPreviewScale(Math.min(0.68, containerWidth / 794))
+    })
+    observer.observe(previewContainerRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
       {/* ── Preview en vivo ── */}
-      <div className="overflow-auto rounded-xl border border-neutral-200 bg-neutral-100 shadow-inner">
+      <div ref={previewContainerRef} className="overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 shadow-inner">
         {TemplateComponent ? (
           <div
             ref={templateRef}
             style={{
-              zoom: PREVIEW_SCALE,
+              zoom: previewScale,
               width: '794px',
               pointerEvents: 'none',
             }}
@@ -221,7 +231,7 @@ export function ExportForm({
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-neutral-900">{t.name}</span>
                   {t.is_premium && !t.hasAccess ? (
-                    <span className="text-xs font-medium text-amber-600">🔒 ${t.price_ars}</span>
+                    <span className="text-xs font-medium text-amber-600">🔒 ARS ${t.price_ars.toLocaleString('es-AR')}</span>
                   ) : t.is_premium ? (
                     <span className="text-xs font-medium text-green-600">✓ Desbloqueada</span>
                   ) : (
@@ -301,7 +311,7 @@ export function ExportForm({
                   {isLocked && (
                     <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 hidden group-hover:block z-10">
                       <div className="whitespace-nowrap rounded-lg bg-neutral-800 px-3 py-1.5 text-xs text-white shadow-lg">
-                        Desbloqueá por $3000 ARS
+                        Desbloqueá por ARS $3.000
                         <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-neutral-800" />
                       </div>
                     </div>
@@ -362,7 +372,7 @@ export function ExportForm({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/mercadopago.svg" alt="Mercado Pago" className="h-9 w-auto" />
               <div className="text-right">
-                <p className="text-base font-bold" style={{ color: '#1e3458' }}>${selectedTemplate.price_ars} ARS</p>
+                <p className="text-base font-bold" style={{ color: '#1e3458' }}>ARS ${selectedTemplate.price_ars.toLocaleString('es-AR')}</p>
                 <p className="text-xs text-neutral-400">pago único · acceso permanente</p>
               </div>
             </button>
@@ -386,7 +396,7 @@ export function ExportForm({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/mercadopago.svg" alt="Mercado Pago" className="h-9 w-auto" />
               <div className="text-right">
-                <p className="text-base font-bold" style={{ color: '#1e3458' }}>$3000 ARS</p>
+                <p className="text-base font-bold" style={{ color: '#1e3458' }}>ARS $3.000</p>
                 <p className="text-xs text-neutral-400">pago único · acceso permanente</p>
               </div>
             </button>

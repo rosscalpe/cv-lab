@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { TEMPLATE_REGISTRY } from '@/components/pdf/templates'
 import type { TemplateWithAccess } from '@/lib/supabase/template-queries'
@@ -16,6 +16,8 @@ interface Props {
 export function TemplatePreviewModal({ template, cvData, onClose }: Props) {
   const router = useRouter()
   const overlayRef = useRef<HTMLDivElement>(null)
+  const previewContainerRef = useRef<HTMLDivElement>(null)
+  const [previewScale, setPreviewScale] = useState(0.72)
 
   // Cerrar con Escape
   useEffect(() => {
@@ -28,6 +30,17 @@ export function TemplatePreviewModal({ template, cvData, onClose }: Props) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
+  }, [])
+
+  // Escalar preview al ancho del contenedor
+  useEffect(() => {
+    if (!previewContainerRef.current) return
+    const observer = new ResizeObserver(([entry]) => {
+      const w = entry.contentRect.width
+      setPreviewScale(Math.min(0.72, w / 794))
+    })
+    observer.observe(previewContainerRef.current)
+    return () => observer.disconnect()
   }, [])
 
   const TemplateComponent = TEMPLATE_REGISTRY[template.name]
@@ -64,7 +77,7 @@ export function TemplatePreviewModal({ template, cvData, onClose }: Props) {
               <Button onClick={handleSelect}>Usar esta plantilla →</Button>
             ) : (
               <Button onClick={() => router.push(`/export?templateId=${template.id}`)}>
-                Desbloquear — {template.price_ars} ARS
+                Desbloquear — ARS ${template.price_ars.toLocaleString('es-AR')}
               </Button>
             )}
             <button
@@ -78,9 +91,9 @@ export function TemplatePreviewModal({ template, cvData, onClose }: Props) {
         </div>
 
         {/* Preview del template */}
-        <div className="overflow-auto bg-neutral-100 p-6" style={{ flex: 1 }}>
+        <div ref={previewContainerRef} className="overflow-auto bg-neutral-100 p-6" style={{ flex: 1 }}>
           {TemplateComponent ? (
-            <div style={{ transformOrigin: 'top center', transform: 'scale(0.72)', width: '794px', margin: '0 auto' }}>
+            <div style={{ zoom: previewScale, width: '794px' }}>
               <TemplateComponent data={cvData} />
             </div>
           ) : (

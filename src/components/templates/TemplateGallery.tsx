@@ -66,7 +66,7 @@ function TemplateCard({
               </span>
             ) : (
               <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                🔒 ${template.price_ars}
+                🔒 ARS ${template.price_ars.toLocaleString('es-AR')}
               </span>
             )}
           </div>
@@ -110,7 +110,7 @@ function TemplateCard({
               onClick={onSelect}
               className="w-full rounded-lg bg-amber-500 px-3 py-2 text-xs font-medium text-white hover:bg-amber-600 transition-colors"
             >
-              🔒 ${template.price_ars}
+              🔒 ARS ${template.price_ars.toLocaleString('es-AR')}
             </button>
           )}
           <button

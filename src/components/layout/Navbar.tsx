@@ -32,7 +32,7 @@ export function Navbar({ labels }: NavbarProps) {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         {/* Logo */}
         <Link href="/profile" className="flex items-center gap-0 shrink-0">
-          <Image src="/CVlab1.png" alt="CVLab" width={0} height={0} sizes="100vw" className="h-20 w-auto" />
+          <Image src="/CVlab1.svg" alt="CVLab" width={0} height={0} sizes="100vw" className="h-20 w-auto" />
           <span className="text-base font-bold tracking-tight" style={{ color: '#1e3458' }}>CVLab</span>
         </Link>
 

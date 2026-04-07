@@ -6,11 +6,11 @@ export default async function AuthLayout({ children }: Props) {
       {/* Logo / Brand */}
       <div className="mb-8 text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/CVlab1.png" alt="CVLab" className="mx-auto mb-3 h-20 w-20 rounded-2xl" />
+        <img src="/CVlab1.svg" alt="CVLab" className="mx-auto mb-3 h-20 w-20 rounded-2xl" />
         <span className="text-2xl font-bold tracking-tight" style={{ color: '#1e3458' }}>
           CVLab
         </span>
-        <p className="mt-1 text-sm text-neutral-500">Tu CV al instante</p>
+        <p className="mt-1 text-sm text-neutral-500">Creá tu CV profesional fácil y rápido</p>
       </div>
 
       {/* Card */}
