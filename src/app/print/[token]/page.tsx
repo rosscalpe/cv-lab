@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { verifyPrintToken } from '@/lib/print-token'
-import { createClient } from '@/lib/supabase/server'
-import { getUserCVData } from '@/lib/supabase/queries'
+import { createServiceClient } from '@/lib/supabase/service'
+import { getUserCVDataAsService } from '@/lib/supabase/queries'
 import { TEMPLATE_REGISTRY } from '@/components/pdf/templates'
 import type { UserCVData } from '@/types/database'
 
@@ -19,15 +19,10 @@ export default async function PrintPage({ params }: Props) {
     notFound()
   }
 
-  // Autenticar con la sesión del usuario (cookie reenviada por Puppeteer)
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || user.id !== payload.userId) notFound()
-
-  const cvData = await getUserCVData(user.id)
+  // El token ya está firmado con HMAC — no necesitamos verificar sesión de nuevo.
+  // Usamos service role para buscar los datos del usuario por su ID.
+  const supabase = createServiceClient()
+  const cvData = await getUserCVDataAsService(supabase, payload.userId)
 
   // Aplicar overrides traducidos sobre los datos de la BD
   const finalData: UserCVData = payload.overrides
