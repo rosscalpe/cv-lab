@@ -38,13 +38,14 @@ export async function generatePDF(printUrl: string, cookieHeader: string): Promi
 
     if (cookieHeader) {
       const url = new URL(printUrl)
+      const isSecure = url.protocol === 'https:'
       const cookies = cookieHeader.split(';').flatMap((part) => {
         const eqIdx = part.indexOf('=')
         if (eqIdx === -1) return []
         const name = part.slice(0, eqIdx).trim()
         const value = part.slice(eqIdx + 1).trim()
         if (!name) return []
-        return [{ name, value, domain: url.hostname, path: '/' }]
+        return [{ name, value, domain: url.hostname, path: '/', secure: isSecure, httpOnly: false }]
       })
       if (cookies.length > 0) {
         await page.setCookie(...cookies)
