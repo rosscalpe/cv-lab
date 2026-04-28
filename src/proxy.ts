@@ -6,7 +6,7 @@ import { routing } from './i18n/routing'
 const intlMiddleware = createMiddleware(routing)
 
 /** Rutas que requieren sesión activa */
-const PROTECTED_PATHS = ['/profile', '/templates', '/export']
+const PROTECTED_PATHS = ['/profile', '/templates', '/export', '/reset-password/update']
 
 /** Rutas solo para usuarios NO autenticados */
 const AUTH_PATHS = ['/login', '/register', '/reset-password']
@@ -57,9 +57,9 @@ export async function proxy(request: NextRequest) {
   const isProtected = PROTECTED_PATHS.some((p) =>
     pathnameWithoutLocale.startsWith(p),
   )
-  const isAuthRoute = AUTH_PATHS.some((p) =>
-    pathnameWithoutLocale.startsWith(p),
-  )
+  const isAuthRoute =
+    AUTH_PATHS.some((p) => pathnameWithoutLocale.startsWith(p)) &&
+    !pathnameWithoutLocale.startsWith('/reset-password/update')
 
   if (isProtected && !user) {
     const loginUrl = new URL('/login', request.url)

@@ -82,11 +82,15 @@ export async function updatePassword(
   prevState: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
-  const supabase = await createClient()
+  const password = formData.get('password') as string
+  const confirmPassword = formData.get('confirmPassword') as string
 
-  const { error } = await supabase.auth.updateUser({
-    password: formData.get('password') as string,
-  })
+  if (password !== confirmPassword) {
+    return { error: 'Las contraseñas no coinciden' }
+  }
+
+  const supabase = await createClient()
+  const { error } = await supabase.auth.updateUser({ password })
 
   if (error) return { error: error.message }
 
